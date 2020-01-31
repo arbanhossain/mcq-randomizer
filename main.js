@@ -11,7 +11,9 @@ let pictureFolder = "images",
 
 let options = 4,
     choices = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-    answerIndicator = "[*]";
+    answerIndicator = "[*]",
+    scenarioIndicator = "[/]",
+    imageIndicator = "[IMG]";
 
 const readfile = (e) => {
     //console.log('gg')
@@ -118,11 +120,14 @@ const print = (array) => {
                     subitem = subitem.replace(splitted[0], no.toString() + '.')
                     splitted = subitem.split(" ");
                     no++;
+                }
+                if(subitem.startsWith(imageIndicator)){
                     if (splitted[splitted.length - 1].match(regex)) {
                         let ext = splitted[splitted.length - 1];
                         //console.log(`found ${splitted}`)
                         splitted.pop();
-                        subitem = splitted.join(" ") + "<br>" + `<img src="./${pictureFolder}/${ext}" width=${width}>`
+                        subitem = splitted.join(" ") + "" + `<img src="./${pictureFolder}/${ext}" width=${width}>`
+                        subitem = subitem.replace(imageIndicator, "");
                     }
                 }
                 //console.log(splitted[splitted.length - 1]);
