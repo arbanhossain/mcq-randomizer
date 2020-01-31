@@ -50,6 +50,7 @@ const doStuff = (e) => {
     //console.log(qsn);
     const randomized = [];
     let qsnpart = [];
+
     qsn.forEach(item => {
         if (!isNaN(parseInt(item[0]))) {
             if (qsnpart != []) {
@@ -63,9 +64,7 @@ const doStuff = (e) => {
     });
     randomized.push(qsnpart);
     //console.log(randomized)
-
     shuffled = shuffle(randomized);
-
     console.log(shuffled);
     print(shuffled);
 }
@@ -91,7 +90,6 @@ const print = (array) => {
                     }
                 }
                 //console.log(splitted[splitted.length - 1]);
-
                 text += `${subitem} <br>`
             })
         }
