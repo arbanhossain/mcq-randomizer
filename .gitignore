@@ -1,2 +1,5 @@
 main.py
 qsn.txt
+nq.txt
+.gitignore
+/images

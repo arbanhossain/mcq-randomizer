@@ -1,8 +1,13 @@
-String.prototype.replaceAt=function(index, replacement) {
-    return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
+String.prototype.replaceAt = function (index, replacement) {
+    return this.substr(0, index) + replacement + this.substr(index + replacement.length);
 }
 
 document.getElementById('doButton').disabled = true;
+
+let regex = /^([^\.]+\.[^\.]+)$/;
+
+let pictureFolder = "images",
+    width = 400;
 
 const readfile = (e) => {
     //console.log('gg')
@@ -62,7 +67,7 @@ const doStuff = (e) => {
     shuffled = shuffle(randomized);
 
     console.log(shuffled);
-    print(shuffled)
+    print(shuffled);
 }
 
 const print = (array) => {
@@ -70,17 +75,28 @@ const print = (array) => {
     let text = ``;
     ran = document.getElementById('randomized');
     array.forEach(item => {
-        if(item.length !=0 ){
+        if (item.length != 0) {
             item.forEach(subitem => {
-                if (!isNaN(parseInt(subitem[0]))){
-                    subitem = subitem.substr(1)
-                    subitem = no.toString()+subitem;
+                let splitted = subitem.split(" ");
+                //console.log(splitted);
+                if (!isNaN(parseInt(subitem[0]))) {
+                    subitem = subitem.replace(splitted[0], no.toString() + '.')
+                    splitted = subitem.split(" ");
                     no++;
+                    if (splitted[splitted.length - 1].match(regex)) {
+                        let ext = splitted[splitted.length - 1];
+                        //console.log(`found ${splitted}`)
+                        splitted.pop();
+                        subitem = splitted.join(" ") + " " + `<img src="./${pictureFolder}/${ext}" width=${width}>`
+                    }
                 }
-                text += `${subitem}\n`
+                //console.log(splitted[splitted.length - 1]);
+
+                text += `${subitem} <br>`
             })
         }
+        text += '<br>';
     })
     console.log(text);
-    ran.innerText = text;
+    ran.innerHTML = text;
 }
