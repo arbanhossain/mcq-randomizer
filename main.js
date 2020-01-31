@@ -9,6 +9,10 @@ let regex = /^([^\.]+\.[^\.]+)$/;
 let pictureFolder = "images",
     width = 400;
 
+let options = 4,
+    choices = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    answerIndicator = "[*]";
+
 const readfile = (e) => {
     //console.log('gg')
 
@@ -65,17 +69,49 @@ const doStuff = (e) => {
     randomized.push(qsnpart);
     //console.log(randomized)
     shuffled = shuffle(randomized);
-    console.log(shuffled);
-    print(shuffled);
+    //console.log(shuffled);
+    randomizeOptions(shuffled);
+}
+
+const randomizeOptions = (array) => {
+    //console.log(array);
+    array.forEach(item => {
+        let ln = item.length;
+        let workArray = item.slice(ln-options,ln);
+        workArray = sortOptions(shuffle(workArray));
+        //console.log(workArray);
+        for(let i = 0; i<options; i++){
+            item[ln-1-i] = workArray[options-1-i];
+        }
+        //console.log(workArray);
+    });
+    //console.log(array);
+    print(array);
+}
+
+const sortOptions = (array) => {
+    let sortedArray = [];
+    if(array.length == options){
+        for(let i = 0; i<options; i++){
+            sortedArray.push(choices[i] + array[i].substr(1));
+        }
+    }
+    //console.log(sortedArray);
+    return sortedArray;
 }
 
 const print = (array) => {
+    let answers = "";
     let no = 1;
     let text = ``;
     ran = document.getElementById('randomized');
     array.forEach(item => {
         if (item.length != 0) {
             item.forEach(subitem => {
+                if(subitem.endsWith(answerIndicator)){
+                    answers += subitem[0];
+                    subitem = subitem.replace(answerIndicator, "");
+                }
                 let splitted = subitem.split(" ");
                 //console.log(splitted);
                 if (!isNaN(parseInt(subitem[0]))) {
@@ -86,7 +122,7 @@ const print = (array) => {
                         let ext = splitted[splitted.length - 1];
                         //console.log(`found ${splitted}`)
                         splitted.pop();
-                        subitem = splitted.join(" ") + " " + `<img src="./${pictureFolder}/${ext}" width=${width}>`
+                        subitem = splitted.join(" ") + "<br>" + `<img src="./${pictureFolder}/${ext}" width=${width}>`
                     }
                 }
                 //console.log(splitted[splitted.length - 1]);
@@ -94,7 +130,9 @@ const print = (array) => {
             })
         }
         text += '<br>';
-    })
-    console.log(text);
+    });
+    text += answers;
+    //console.log(text);
+    console.log(answers);
     ran.innerHTML = text;
 }
