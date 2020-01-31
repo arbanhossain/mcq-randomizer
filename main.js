@@ -77,11 +77,11 @@ const randomizeOptions = (array) => {
     //console.log(array);
     array.forEach(item => {
         let ln = item.length;
-        let workArray = item.slice(ln-options,ln);
+        let workArray = item.slice(ln - options, ln);
         workArray = sortOptions(shuffle(workArray));
         //console.log(workArray);
-        for(let i = 0; i<options; i++){
-            item[ln-1-i] = workArray[options-1-i];
+        for (let i = 0; i < options; i++) {
+            item[ln - 1 - i] = workArray[options - 1 - i];
         }
         //console.log(workArray);
     });
@@ -91,8 +91,8 @@ const randomizeOptions = (array) => {
 
 const sortOptions = (array) => {
     let sortedArray = [];
-    if(array.length == options){
-        for(let i = 0; i<options; i++){
+    if (array.length == options) {
+        for (let i = 0; i < options; i++) {
             sortedArray.push(choices[i] + array[i].substr(1));
         }
     }
@@ -108,7 +108,7 @@ const print = (array) => {
     array.forEach(item => {
         if (item.length != 0) {
             item.forEach(subitem => {
-                if(subitem.endsWith(answerIndicator)){
+                if (subitem.endsWith(answerIndicator)) {
                     answers += subitem[0];
                     subitem = subitem.replace(answerIndicator, "");
                 }
