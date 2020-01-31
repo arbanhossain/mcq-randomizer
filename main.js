@@ -131,7 +131,7 @@ const print = (array) => {
         }
         text += '<br>';
     });
-    text += answers;
+    text += `Answers: ${answers}`;
     //console.log(text);
     console.log(answers);
     ran.innerHTML = text;
